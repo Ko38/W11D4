@@ -1,0 +1,56 @@
+import React from 'react';
+
+export default class Signin extends React.Component {
+  constructor(props) {
+    super(props);
+    // debugger;
+    this.state = {
+      username: '',
+      email: '',
+      password: '',
+    }
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleInput = this.handleInput.bind(this)
+
+  }
+
+  handleInput(type) {
+    return (e) => {
+      this.setState({ [type]: e.target.value })
+    }
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.props.signin(this.state)
+      .then(() => this.props.history.push('/chrips'));
+  }
+
+  render() {
+    // debugger
+    return (
+      <div className="session-form">
+        <h2>Log In!</h2>
+        <form>
+          <label>
+            Username:
+            <input
+              type="text"
+              value={this.state.username}
+              onChange={this.handleInput("username")}
+            />
+          </label>
+          <label>
+            Password:
+            <input
+              type="password"
+              value={this.state.password}
+              onChange={this.handleInput("password")}
+            />
+          </label>
+          <button onClick={this.handleSubmit}>Sign in!!!</button>
+        </form>
+      </div>
+    )
+  }
+}
